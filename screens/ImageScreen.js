@@ -25,7 +25,7 @@ export default function ImageScreen({route, navigation}) {
     return (
         <View style={{flex:1}}>
             {predictions ?
-                predictions.map(pred => <Text style={styles.text} key={pred.bbox[0]}>{pred.class}</Text>) :
+                predictions.map(pred => <Text style={styles.text} key={pred.bbox[0]}>{pred.class} ({pred.score.toFixed(3)})</Text>) :
                 <ActivityIndicator color="#0000ff" style={{margin: 20}}/>
             }
             <DetectedImage img={uri} predictions={predictions}/>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
       },
     text: {
         alignSelf: 'center',
-        fontSize: 10,
+        fontSize: 15,
         margin: 5
     }
 })

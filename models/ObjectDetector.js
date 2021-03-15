@@ -11,6 +11,7 @@ export default class ObjectDetector {
     constructor() {
         this.model = null;
         this.backendReady = false;
+        this.DETECTION_CACHE = {};
         this.initBackend();
     }
 
@@ -28,6 +29,10 @@ export default class ObjectDetector {
     }
 
     async classifyImage(uri) {
+        if (this.DETECTION_CACHE[uri] != null) {
+          return this.DETECTION_CACHE[uri];
+        }
+
         console.log("empezando a predecir");
         if (!this._isDetectorReady()) return;
 
@@ -36,6 +41,7 @@ export default class ObjectDetector {
         const predictions = await this.model.detect(imageTensor);
 
         console.log("PRED", predictions);
+        this.DETECTION_CACHE[uri] = predictions;
         return predictions;
     }
 }
