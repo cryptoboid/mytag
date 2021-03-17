@@ -7,6 +7,8 @@ import * as jpeg from 'jpeg-js'
 
 import * as FileSystem from 'expo-file-system';
 
+import PredictedImage from "./PredictedImage";
+
 export default class ObjectDetector {
     constructor() {
         this.model = null;
@@ -28,21 +30,21 @@ export default class ObjectDetector {
       return this.backendReady && this.model;
     }
 
-    async classifyImage(uri) {
-        if (this.DETECTION_CACHE[uri] != null) {
-          return this.DETECTION_CACHE[uri];
+    async classifyImage(image) {
+        if (this.DETECTION_CACHE[image.uri] != null) {
+          return this.DETECTION_CACHE[image.uri];
         }
 
-        console.log("empezando a predecir");
-        if (!this._isDetectorReady()) return;
+        if (!this._isDetectorReady()) return {};
 
-        const imageTensor = await _uriToTensor(uri);
-        console.log("PREDICIENDO");
+        const imageTensor = await _uriToTensor(image.uri);
         const predictions = await this.model.detect(imageTensor);
 
         console.log("PRED", predictions);
-        this.DETECTION_CACHE[uri] = predictions;
-        return predictions;
+        this.DETECTION_CACHE[image.uri] = predictions;
+
+        let result = new PredictedImage(image, predictions);
+        return result;
     }
 }
 
