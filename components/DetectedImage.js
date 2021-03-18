@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     rectangle: {
         height: 128,
         width: 128,
-        borderColor: 'blue',
+        borderColor: 'aquamarine',
         borderWidth: 5,
         position: 'absolute', 
         top: '0%',
