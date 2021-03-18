@@ -6,13 +6,15 @@ class CategoriesGrouper {
         this.categories = {};
     }
 
-    useImages(images, notifyCategories) {
+    useImages(images, imageClassifiedCallback) {
         this.images = images;
-        this._regroupImages(notifyCategories);
+        this._regroupImages(imageClassifiedCallback);
     }
 
-    async _regroupImages(notifyCategories) {
-        for (const img of this.images) {
+    async _regroupImages(imageClassifiedCallback) {
+        for (let i = 0; i < this.images.length; i++) {
+            const img = this.images[i];
+
             let predictedImage = await this.detector.classifyImage(img);
 
             for (const pred of predictedImage.predictions) {
@@ -30,9 +32,9 @@ class CategoriesGrouper {
 
                 this.categories[pred.class].push(predictedImage);
             }
-            notifyCategories(Object.keys(this.categories));
-        }
 
+            imageClassifiedCallback(Object.keys(this.categories), (i+1) / this.images.length);
+        }
     }
 
     get amount() {

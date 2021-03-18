@@ -8,25 +8,14 @@ import ImageGrid from '../components/ImageGrid';
 import {Picker} from '@react-native-picker/picker';
 
 import { CategoriesContext } from '../utils/CategoriesContext';
-
-function assetsToData(assets) {
-    var data = [];
-    var accum = 0;
-
-    for (const asset of assets) {
-        data.push({image: asset.uri, id: "imagen"+accum});
-        accum++;
-    }
-
-    return data;
-}
-
+import LoadingClassificationsBar from '../components/LoadingClassificationsBar';
 
 export default function HomeScreen() {
     
     const [selectedCategoryIndx, setSelectedCategoryIndx] = useState(0);
     const [imagesForThisCategory, setImagesForThisCategory]  = useState([]);
     const [foundCategories, setFoundCategories]  = useState([]);
+    const [classifiedPercentage, setClassifiedPercentage] = useState(0.0);
     const categoriesGrouper = useContext(CategoriesContext);
 
     
@@ -40,13 +29,20 @@ export default function HomeScreen() {
         return imgData.assets;
     }
 
+    const notifyCategories = (newFoundCategories, newPercentage) => {
+        setFoundCategories(newFoundCategories);
+        setClassifiedPercentage(newPercentage);
+    }
+
     const getAlbums = async () => {
         const albums = await MediaLibrary.getAlbumsAsync();
         let allImages = [];
+
         for (const album of albums) {
             allImages = allImages.concat(await getImages(album));
         }
-        categoriesGrouper.useImages(allImages, setFoundCategories);
+
+        categoriesGrouper.useImages(allImages, notifyCategories);
     }
 
     useEffect(() => {
@@ -89,6 +85,7 @@ export default function HomeScreen() {
                 <Text style={styles.text}>Found {foundCategories.length} categories</Text>
             </View>
             <ImageGrid predImages={imagesForThisCategory} />
+            <LoadingClassificationsBar completedPercentage={classifiedPercentage} />
         </View>
     )
 }
