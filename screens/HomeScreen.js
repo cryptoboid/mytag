@@ -50,7 +50,7 @@ export default function HomeScreen() {
             if (Platform.OS !== "web") {
                 const permission = await MediaLibrary.requestPermissionsAsync();
                 if (permission.status !== "granted") {
-                    alert("Sorry, we need camera roll permissions to make this work!");
+                    alert("Sorry, we need media permissions to make this work!");
                 } else {
                     getAlbums();
                 }
@@ -94,7 +94,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
     },
     text: {
       fontSize: 18,

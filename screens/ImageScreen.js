@@ -21,7 +21,6 @@ export default function ImageScreen({route, navigation}) {
 
 const styles = StyleSheet.create({
     item: {
-        backgroundColor: '#ffffff',
         margin: 1.5,
         // height: Dimensions.get('window').height / 4.85,
         aspectRatio: 4/5,

@@ -20,7 +20,7 @@ export default function LoadingClassificationsBar({completedPercentage}) {
                 <Progress.Bar
                     isIndeterminate={!completedPercentage}
                     progress={completedPercentage || 0.5}
-                    color="#40393E"/>
+                    color="#7fe7cc"/>
                 : <View/>
             }
         </View> 
