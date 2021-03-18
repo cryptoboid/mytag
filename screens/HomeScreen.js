@@ -86,7 +86,7 @@ export default function HomeScreen() {
                     )}
 
                 </Picker>
-                <Text style={styles.text}>Encontre {foundCategories.length} categorias </Text>
+                <Text style={styles.text}>Found {foundCategories.length} categories</Text>
             </View>
             <ImageGrid predImages={imagesForThisCategory} />
         </View>
