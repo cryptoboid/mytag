@@ -62,7 +62,7 @@ export default function HomeScreen() {
 
     useEffect(() => {
         setImagesForThisCategory(categoriesGrouper.getForCategory(foundCategories[selectedCategoryIndx]));
-    }, [foundCategories]);
+    }, [foundCategories, selectedCategoryIndx]);
 
     return (
         <View style={styles.container}>
