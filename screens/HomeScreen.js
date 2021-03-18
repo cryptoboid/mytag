@@ -24,87 +24,35 @@ function assetsToData(assets) {
 
 export default function HomeScreen() {
     
-    const [data, setData] = useState([]);
-    const [albumsInfo, setAlbumsInfo] = useState([]);
-    const [selectedAlbum, setSelectedAlbum] = useState("");
+    const [selectedCategoryIndx, setSelectedCategoryIndx] = useState(0);
+    const [imagesForThisCategory, setImagesForThisCategory]  = useState([]);
+    const [foundCategories, setFoundCategories]  = useState([]);
+    const categoriesGrouper = useContext(CategoriesContext);
+
     
     const getImages = async (album) => {
-
         const imgData = await MediaLibrary.getAssetsAsync({
             first: 10,
             album: album.id,
             mediaType: MediaLibrary.MediaType.photo
         })
 
-        // const imagenes = assetsToData(imgData.assets);
-        // console.log("ONE IMAGES: ", imgData);
-        // setData(imagenes);
         return imgData.assets;
     }
-  
-    // useEffect(() => {
-
-    //     const getPermissionAsync = async () => {
-    //         if (Platform.OS !== "web") {
-    //             const permission = await MediaLibrary.requestPermissionsAsync();
-                
-    //             if (permission.status !== "granted") {
-    //                 alert("Sorry, we need camera roll permissions to make this work!");
-    //             } else {
-    //                 getAlbums();
-    //             }
-    //         }
-    //     };
-
-    //     getPermissionAsync();
-    // }, []);
-
-    // useEffect(() => {
-    //     getImages();
-    // }, [albumsInfo, selectedAlbum]);
-
-    // return (
-    //     <View style={styles.container}>
-    //         <View style={{flexDirection:"row"}}>
-    //             <Picker
-    //                 selectedValue={selectedAlbum}
-    //                 style={{height: 50, width: 150}}
-    //                 onValueChange={(itemValue, itemIndex) =>
-    //                     setSelectedAlbum(itemValue)
-    //                 }
-    //                 mode="dialog"
-    //                 prompt="Select a Category"
-    //                 >
-                    
-    //                 {albumsInfo.map((item) =>
-    //                     <Picker.Item label={item.title} value={item.id} key={item.id} />
-    //                 )}
-
-    //             </Picker>
-    //             <Text style={styles.text}>Encontre {categoriesGrouper.amount} categorias </Text>
-    //         </View>
-    //         <ImageGrid inputData={data} />
-    //     </View>
-    // );
 
     const getAlbums = async () => {
         const albums = await MediaLibrary.getAlbumsAsync();
-        // setAlbumsInfo(albums);
         let allImages = [];
-        // console.log("ALBUMS: ", albums);
         for (const album of albums) {
             allImages = allImages.concat(await getImages(album));
-            console.log(allImages);
         }
-        categoriesGrouper.useImages(allImages);
+        categoriesGrouper.useImages(allImages, setFoundCategories);
     }
 
     useEffect(() => {
-
         const getPermissionAsync = async () => {
             if (Platform.OS !== "web") {
                 const permission = await MediaLibrary.requestPermissionsAsync();
-                
                 if (permission.status !== "granted") {
                     alert("Sorry, we need camera roll permissions to make this work!");
                 } else {
@@ -116,10 +64,32 @@ export default function HomeScreen() {
         getPermissionAsync();
     }, []);
 
-    const categoriesGrouper = useContext(CategoriesContext);
+    useEffect(() => {
+        setImagesForThisCategory(categoriesGrouper.getForCategory(foundCategories[selectedCategoryIndx]));
+    }, [foundCategories]);
 
     return (
-        <View/>
+        <View style={styles.container}>
+            <View style={{flexDirection:"row"}}>
+                <Picker
+                    selectedValue={selectedCategoryIndx}
+                    style={{height: 50, width: 150}}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setSelectedCategoryIndx(itemValue)
+                    }
+                    mode="dialog"
+                    prompt="Select a Category"
+                    >
+                    
+                    {foundCategories.map((categ, indx) =>
+                        <Picker.Item label={categ} value={indx} key={categ} />
+                    )}
+
+                </Picker>
+                <Text style={styles.text}>Encontre {foundCategories.length} categorias </Text>
+            </View>
+            <ImageGrid predImages={imagesForThisCategory} />
+        </View>
     )
 }
 

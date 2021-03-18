@@ -4,31 +4,17 @@ import { useContext, useEffect, useState } from 'react';
 import { Image, Text, View, StyleSheet, ActivityIndicator } from 'react-native';
 import DetectedImage from '../components/DetectedImage';
 
-// import ObjectDetector from '../models/ObjectDetector';
-import { DetectorContext } from '../utils/DetectorContext';
-
 export default function ImageScreen({route, navigation}) {
 
-    const { uri } = route.params;
-    const [predictions, setPredictions] = useState(null);
-    const detector = useContext(DetectorContext);
-
-    const classify = async () => {
-        const preds = await detector.classifyImage(uri);
-        setPredictions(preds);
-    }
-
-    useEffect(() => {
-        classify();
-    }, []);
+    const { predImg } = route.params;
 
     return (
         <View style={{flex:1}}>
-            {predictions ?
-                predictions.map(pred => <Text style={styles.text} key={pred.bbox[0]}>{pred.class} ({pred.score.toFixed(3)})</Text>) :
-                <ActivityIndicator color="#0000ff" style={{margin: 20}}/>
+            {predImg.predictions ?
+                predImg.predictions.map(pred => <Text style={styles.text} key={pred.bbox[0]}>{pred.class} ({pred.score.toFixed(3)})</Text>) :
+                <Text>NO PREDICTIONS FOUND!</Text>
             }
-            <DetectedImage img={uri} predictions={predictions}/>
+            <DetectedImage img={predImg.uri} predictions={predImg.predictions}/>
         </View>
     )
 }

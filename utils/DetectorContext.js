@@ -5,7 +5,7 @@ export const DetectorContext = createContext();
 
 export function DetectorContextProvider(props) {
     const detector = new ObjectDetector();
-    console.log(detector);
+    // console.log(detector);
 
     return (
         <DetectorContext.Provider value={detector}>

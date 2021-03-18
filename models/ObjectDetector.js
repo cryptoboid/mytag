@@ -19,9 +19,10 @@ export default class ObjectDetector {
 
     async initBackend() {
       await tf.ready();
-      console.log("termino TF")
+      console.log("Finished loading TF");
+      
       this.model = await cocossd.load();
-      console.log("termino COCO");
+      console.log("Finished loading COCO");
 
       this.backendReady = true;
     }
@@ -40,7 +41,7 @@ export default class ObjectDetector {
         const imageTensor = await _uriToTensor(image.uri);
         const predictions = await this.model.detect(imageTensor);
 
-        console.log("PRED", predictions);
+        // console.log("PRED", predictions);
         this.DETECTION_CACHE[image.uri] = predictions;
 
         let result = new PredictedImage(image, predictions);

@@ -4,13 +4,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { useNavigation } from "@react-navigation/native";
 
-export default function ImageItem({img}) {
+export default function ImageItem({predImg}) {
     
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('Image', { uri: img })}>
-            <Image source={{uri: img}} style={styles.item} />
+        <TouchableOpacity onPress={() => navigation.navigate('Image', { predImg: predImg })}>
+            <Image source={{uri: predImg.uri}} style={styles.item} />
         </TouchableOpacity>
     );
 }
