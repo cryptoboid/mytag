@@ -29,7 +29,7 @@ export default class ObjectDetector {
     }
 
     _isDetectorReady() {
-        return this.backendReady && this.model;
+        return this.backendReady && this.model!=undefined;
     }
 
     async classifyImage(image) {
@@ -38,7 +38,11 @@ export default class ObjectDetector {
             return new PredictedImage(image, cachedPreds);
         }
 
-        if (!this._isDetectorReady()) return {};
+        if (!this._isDetectorReady()) {
+            console.log("Detector not yet ready, waiting...");
+            await waitFor(_ => this.backendReady === true);
+            console.log("Detector ready, lets go!");
+        };
 
         const imageTensor = await _uriToTensor(image.uri);
         const predictions = await this.model.detect(imageTensor);
@@ -51,14 +55,13 @@ export default class ObjectDetector {
     }
 }
 
-
 async function _uriToTensor(uri) {
 
     const manipResponse = await ImageManipulator.manipulateAsync(
         uri,
         [{
             resize: {
-                width: 400
+                width: 300
             }
         }], {
             compress: 1,
@@ -94,3 +97,14 @@ async function _uriToTensor(uri) {
 
     return tf.tensor3d(buffer, [height, width, 3]);
 }
+
+function waitFor(conditionFunction) {
+
+    const poll = resolve => {
+        if(conditionFunction()) resolve();
+        else setTimeout(_ => poll(resolve), 500);
+    }
+
+    return new Promise(poll);
+}
+  

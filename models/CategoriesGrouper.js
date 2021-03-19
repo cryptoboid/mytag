@@ -17,23 +17,27 @@ class CategoriesGrouper {
 
             let predictedImage = await this.detector.classifyImage(img);
 
-            for (const pred of predictedImage.predictions) {
-                // add category array if not present
-                if (!this.categories[pred.class]) {
-                    this.categories[pred.class] = [];
-                }
-
-                let crnCtgry = this.categories[pred.class];
-
-                // dont add this image if already in this category!
-                if (crnCtgry.length && crnCtgry[crnCtgry.length - 1].uri == predictedImage.uri) {
-                    continue;
-                }
-
-                this.categories[pred.class].push(predictedImage);
-            }
+            this._assignImageToCategories(predictedImage);
 
             imageClassifiedCallback(Object.keys(this.categories), (i+1) / this.images.length);
+        }
+    }
+
+    _assignImageToCategories(predImg) {
+        for (const pred of predImg.predictions) {
+            // add category array if not present
+            if (!this.categories[pred.class]) {
+                this.categories[pred.class] = [];
+            }
+
+            let crnCtgry = this.categories[pred.class];
+
+            // dont add this image if already in this category!
+            if (crnCtgry.length && crnCtgry[crnCtgry.length - 1].uri == predImg.uri) {
+                continue;
+            }
+
+            this.categories[pred.class].push(predImg);
         }
     }
 
