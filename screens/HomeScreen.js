@@ -21,7 +21,7 @@ export default function HomeScreen() {
     
     const getImages = async (album) => {
         const imgData = await MediaLibrary.getAssetsAsync({
-            first: 10,
+            // first: 10,
             album: album.id,
             mediaType: MediaLibrary.MediaType.photo
         })
