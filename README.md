@@ -43,7 +43,7 @@ cd mytag
 
 ## Next steps
 
-You can see our to-do list in [this project](https://github.com/cryptoboid/mytag/projects/2). Feel free to work on any of these issues!
+You can see our to-do list in [this project](https://github.com/cryptoboid/mytag/projects/3). Feel free to work on any of these issues!
 
 ## License
 
