@@ -14,6 +14,8 @@ Right now, the first prototype achieves:
 - From the dropdown, the user can choose different categories and view the corresponding images.
 - If the app is open later, the "analysis" will be much much faster, as results were cached locally.
 
+**APK available:** find these features and more in [Releases](https://github.com/cryptoboid/mytag/releases)
+
 ## Contribute
 
 You can either use the Docker container, or install Expo.
