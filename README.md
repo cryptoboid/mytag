@@ -29,8 +29,13 @@ git clone git@github.com:cryptoboid/mytag.git
 cd mytag
 docker-compose run expo
 ```
-3. Once inside, start the expo server (with hot reloading): `expo start`
-4. Download the [Expo Go](https://expo.io/client) app in your phone and test it!
+3. Create a `credentials.env` file on root with credentials (only specify credentials if building or publishing on Expo, otherwise you can leave them blank):
+```
+EXPO_CLI_USERNAME=yourexpouser
+EXPO_CLI_PASSWORD=yourexpopass
+```
+4. Once inside, start the expo server (with hot reloading): `expo start`
+5. Download the [Expo Go](https://expo.io/client) app in your phone and test it!
 
 ### Locally
 1. Install Expo CLI: `https://expo.io/tools#cli`
@@ -40,8 +45,13 @@ git clone git@github.com:cryptoboid/mytag.git
 cd mytag
 ```
 3. Install npm packages: `npm install`
-4. Start the expo server (with hot reloading): `expo start`
-5. Download the [Expo Go](https://expo.io/client) app in your phone and test it!
+4. Create a `credentials.env` file on root with credentials (only specify credentials if building or publishing on Expo, otherwise you can leave them blank):
+```
+EXPO_CLI_USERNAME=yourexpouser
+EXPO_CLI_PASSWORD=yourexpopass
+```
+5. Start the expo server (with hot reloading): `expo start`
+6. Download the [Expo Go](https://expo.io/client) app in your phone and test it!
 
 ## Next steps
 
