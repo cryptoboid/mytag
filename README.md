@@ -29,7 +29,7 @@ git clone git@github.com:cryptoboid/mytag.git
 cd mytag
 docker-compose run expo
 ```
-3. Create a `credentials.env` file on root with credentials (only specify credentials if building or publishing on Expo, otherwise you can leave them blank):
+3. Create an empty `credentials.env` file on root for development. If you plan on building/publishing on Expo you must include:
 ```
 EXPO_CLI_USERNAME=yourexpouser
 EXPO_CLI_PASSWORD=yourexpopass
@@ -45,7 +45,7 @@ git clone git@github.com:cryptoboid/mytag.git
 cd mytag
 ```
 3. Install npm packages: `npm install`
-4. Create a `credentials.env` file on root with credentials (only specify credentials if building or publishing on Expo, otherwise you can leave them blank):
+4. Create an empty `credentials.env` file on root for development. If you plan on building/publishing on Expo you must include:
 ```
 EXPO_CLI_USERNAME=yourexpouser
 EXPO_CLI_PASSWORD=yourexpopass
