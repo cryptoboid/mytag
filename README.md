@@ -2,8 +2,9 @@
 
 <img width="100vw" src="./assets/icon.png" align="left" style="margin: 0 1em 1em 0"> Simple auto-tagging image gallery. Powered by a Tensorflow model with on-device classification.
 
-Built with Expo+React Native.
-
+Built with Expo+React Native, with the objective of becoming a Google Photos alternative.
+<br>
+<br>
 ## Development
 
 You can either use the Docker container, or install Expo.
