@@ -14,7 +14,7 @@ Right now, the first prototype achieves:
 - From the dropdown, the user can choose different categories and view the corresponding images.
 - If the app is open later, the "analysis" will be much much faster, as results were cached locally.
 
-## Development
+## Contribute
 
 You can either use the Docker container, or install Expo.
 
@@ -40,3 +40,7 @@ cd mytag
 3. Install npm packages: `npm install`
 4. Start the expo server (with hot reloading): `expo start`
 5. Download the [Expo Go](https://expo.io/client) app in your phone and test it!
+
+## License
+
+MIT
