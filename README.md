@@ -41,6 +41,10 @@ cd mytag
 4. Start the expo server (with hot reloading): `expo start`
 5. Download the [Expo Go](https://expo.io/client) app in your phone and test it!
 
+## Next steps
+
+You can see our to-do list in [this project](https://github.com/cryptoboid/mytag/projects/2). Feel free to work on any of these issues!
+
 ## License
 
 MIT
