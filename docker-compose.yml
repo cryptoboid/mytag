@@ -1,0 +1,16 @@
+version: '3.7' # Specify docker-compose version
+
+# Define the services/containers to be run
+services:
+   expo: # Name of the frontend service
+      container_name: expo-container
+      build: ./ # Specify the directory of the Dockerfile
+      ports:
+         - 19000-19006:19000-19006 # Specify port-forwarding
+      volumes: # Mount host path in the container
+         - ./:/usr/src/app
+      env_file: 
+         - credentials.env
+      network_mode: "host"
+      tty: true
+      stdin_open: true
