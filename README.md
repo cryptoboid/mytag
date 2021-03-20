@@ -12,7 +12,7 @@ Right now, the first prototype achieves:
 - When given, the app grabs all available images on the device and classifies one by one, caching results in local storage.
 - After each new result, the app shows the currently selected category and images associated with it (photos with a `person` in it, for example).
 - From the dropdown, the user can choose different categories and view the corresponding images.
-- If the app is open later, the `analysis` will be much much faster, as results were cached locally.
+- If the app is open later, the "analysis" will be much much faster, as results were cached locally.
 
 ## Development
 
