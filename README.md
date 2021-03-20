@@ -1,8 +1,8 @@
 # mytag
 
-<img width="100vw" src="./assets/icon.png" align="left" style="margin: 0 1em 1em 0"> Simple auto-tagging image gallery. Powered by a Tensorflow model with on-device classification.
+<img width="100vw" src="./assets/icon.png" align="left" style="margin: 0 1em 1em 0"> Find your images quickly! mytag aims to be a simple auto-tagging image gallery. 
 
-Built with Expo+React Native, with the objective of becoming a Google Photos alternative.
+Powered by a Tensorflow model with on-device classification. Built with Expo+React Native.
 <br>
 <br>
 ## Current status
