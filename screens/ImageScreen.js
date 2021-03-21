@@ -1,12 +1,18 @@
 import React from 'react';
 import { useContext, useEffect, useState } from 'react';
-
 import { Image, Text, View, StyleSheet, ActivityIndicator } from 'react-native';
+import { ShareButton } from '../components/Button';
 import DetectedImage from '../components/DetectedImage';
 
 export default function ImageScreen({route, navigation}) {
 
     const { predImg } = route.params;
+
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+          headerRight: () => <ShareButton asset={predImg}/>,
+        });
+      }, [navigation]);
 
     return (
         <View style={{flex:1}}>
