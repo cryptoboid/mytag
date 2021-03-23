@@ -1,18 +1,23 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView, Button } from 'react-native'
 
 import * as MediaLibrary from 'expo-media-library';
 
 import ImageGrid from '../components/ImageGrid';
 
-import {Picker} from '@react-native-picker/picker';
+import PickerModal from 'react-native-picker-modal-view';
 
 import { CategoriesContext } from '../utils/CategoriesContext';
 import LoadingClassificationsBar from '../components/LoadingClassificationsBar';
+import toTitleCase from '../utils/to-title-case';
+
+
+
+
 
 export default function HomeScreen() {
     
-    const [selectedCategoryIndx, setSelectedCategoryIndx] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState({});
     const [imagesForThisCategory, setImagesForThisCategory]  = useState([]);
     const [foundCategories, setFoundCategories]  = useState([]);
     const [classifiedPercentage, setClassifiedPercentage] = useState(0.0);
@@ -61,31 +66,43 @@ export default function HomeScreen() {
     }, []);
 
     useEffect(() => {
-        setImagesForThisCategory(categoriesGrouper.getForCategory(foundCategories[selectedCategoryIndx]));
-    }, [foundCategories, selectedCategoryIndx]);
+        setImagesForThisCategory(categoriesGrouper.getForCategory(foundCategories[selectedCategory.Id]));
+    }, [foundCategories, selectedCategory]);
 
     return (
         <View style={styles.container}>
             <View style={{flexDirection:"row"}}>
-                <Picker
-                    selectedValue={selectedCategoryIndx}
-                    style={{height: 50, width: 150}}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setSelectedCategoryIndx(itemValue)
-                    }
-                    mode="dialog"
-                    prompt="Select a Category"
-                    >
-                    
-                    {foundCategories.map((categ, indx) =>
-                        <Picker.Item label={categ} value={indx} key={categ} />
-                    )}
-
-                </Picker>
-                <Text style={styles.text}>Found {foundCategories.length} categories</Text>
+        
+                <PickerModal
+					renderSelectView={(disabled, selected, showModal) => 
+                        <View style={styles.pickerContainer}>
+                            <Button disabled={disabled} onPress={showModal} title={`Found ${foundCategories.length} categories`}></Button>
+                        </View>
+					}
+					onSelected={(item)=>{
+                        setSelectedCategory(item)
+                    }}
+					items={foundCategories.map((catg,index)=>(
+                        {
+                            Id:index,
+                            Name:toTitleCase(catg)
+                        }
+                    ))}
+					sortingLanguage={'tr'}
+					showToTopButton={true}
+					selected={selectedCategory}
+					showAlphabeticalIndex={true}
+					autoGenerateAlphabeticalIndex={true}
+					selectPlaceholderText={'Choose one...'}
+					searchPlaceholderText={'Search...'}
+					requireSelection={false}
+					autoSort={false}
+				/>
             </View>
             <ImageGrid predImages={imagesForThisCategory} />
-            <LoadingClassificationsBar completedPercentage={classifiedPercentage} />
+            <SafeAreaView>
+                <LoadingClassificationsBar completedPercentage={classifiedPercentage} />
+            </SafeAreaView>
         </View>
     )
 }
@@ -99,6 +116,11 @@ const styles = StyleSheet.create({
       fontSize: 18,
       margin: 10,
       alignSelf: 'center'
+    },
+    pickerContainer:{
+        width:"100%",
+        alignItems:"center",
+        justifyContent:"center"
     }
   })
 
