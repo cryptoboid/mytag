@@ -17,7 +17,7 @@ import toTitleCase from '../utils/to-title-case';
 
 export default function HomeScreen() {
     
-    const [selectedCategory, setSelectedCategory] = useState({});
+    const [selectedCategory, setSelectedCategory] = useState({Id:0});
     const [imagesForThisCategory, setImagesForThisCategory]  = useState([]);
     const [foundCategories, setFoundCategories]  = useState([]);
     const [classifiedPercentage, setClassifiedPercentage] = useState(0.0);
