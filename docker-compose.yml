@@ -10,7 +10,7 @@ services:
       volumes: # Mount host path in the container
          - ./:/usr/src/app
       env_file: 
-         - credentials.env
+         - .env
       network_mode: "host"
       tty: true
       stdin_open: true

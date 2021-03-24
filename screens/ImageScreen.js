@@ -1,39 +1,38 @@
-import React from 'react';
-import { useContext, useEffect, useState } from 'react';
-import { Image, Text, View, StyleSheet, ActivityIndicator } from 'react-native';
-import { ShareButton } from '../components/Button';
-import DetectedImage from '../components/DetectedImage';
+import React from 'react'
 
-export default function ImageScreen({route, navigation}) {
+import { Text, View, StyleSheet } from 'react-native'
+import { ShareButton } from '../components/Button'
+import DetectedImage from '../components/DetectedImage'
 
-    const { predImg } = route.params;
+export default function ImageScreen ({ route, navigation }) {
+  const { predImg } = route.params
 
-    React.useLayoutEffect(() => {
-        navigation.setOptions({
-          headerRight: () => <ShareButton asset={predImg}/>,
-        });
-      }, [navigation]);
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: function share () { <ShareButton asset={predImg}/> }
+    })
+  }, [navigation])
 
-    return (
-        <View style={{flex:1}}>
-            {predImg.predictions ?
-                predImg.predictions.map(pred => <Text style={styles.text} key={pred.bbox[0]}>{pred.class} ({pred.score.toFixed(3)})</Text>) :
-                <Text>NO PREDICTIONS FOUND!</Text>
+  return (
+        <View style={{ flex: 1 }}>
+            {predImg.predictions
+              ? predImg.predictions.map(pred => <Text style={styles.text} key={pred.bbox[0]}>{pred.class} ({pred.score.toFixed(3)})</Text>)
+              : <Text>NO PREDICTIONS FOUND!</Text>
             }
             <DetectedImage img={predImg.uri} predictions={predImg.predictions}/>
         </View>
-    )
+  )
 }
 
 const styles = StyleSheet.create({
-    item: {
-        margin: 1.5,
-        // height: Dimensions.get('window').height / 4.85,
-        aspectRatio: 4/5,
-      },
-    text: {
-        alignSelf: 'center',
-        fontSize: 15,
-        margin: 5
-    }
+  item: {
+    margin: 1.5,
+    // height: Dimensions.get('window').height / 4.85,
+    aspectRatio: 4 / 5
+  },
+  text: {
+    alignSelf: 'center',
+    fontSize: 15,
+    margin: 5
+  }
 })
