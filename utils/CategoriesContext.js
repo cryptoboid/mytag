@@ -1,15 +1,15 @@
-import React, { createContext } from 'react';
-import { useRef } from 'react';
-import CategoriesGrouper from '../models/CategoriesGrouper';
+import React, { createContext, useRef } from 'react'
 
-export const CategoriesContext = createContext();
+import CategoriesGrouper from '../models/CategoriesGrouper'
 
-export function CategoriesContextProvider(props) {
-    const categories = useRef(new CategoriesGrouper());
+export const CategoriesContext = createContext()
 
-    return (
-        <CategoriesContext.Provider value={categories.current}>
-            {props.children}
-        </CategoriesContext.Provider>
-    )
+export function CategoriesContextProvider (props) {
+  const categories = useRef(new CategoriesGrouper())
+
+  return (
+    <CategoriesContext.Provider value={categories.current}>
+      {props.children}
+    </CategoriesContext.Provider>
+  )
 }
