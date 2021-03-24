@@ -9,7 +9,7 @@ export default function ImageScreen ({ route, navigation }) {
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: function share () { <ShareButton asset={predImg}/> }
+      headerRight: function share () { return <ShareButton asset={predImg}/> }
     })
   }, [navigation])
 
