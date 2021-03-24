@@ -13,6 +13,7 @@ import ImageItem from './ImageItem';
 export default function ImageGrid({ predImages }) {
   const renderItem = ({ item }) => <ImageItem predImg={item} />;
 
+
   return (
     <View style={{ margin: 5, flex: 1 }}>
       <FlatList
@@ -29,6 +30,6 @@ export default function ImageGrid({ predImages }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-});
+    flex: 1
+  }
+})

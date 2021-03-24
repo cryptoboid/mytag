@@ -1,16 +1,16 @@
 class PredictedImage {
-    constructor(imgMetadata, predictionResult) {
-        this.predictions = predictionResult;
-        this.imageMetadata = imgMetadata;
-    }
+  constructor (imgMetadata, predictionResult) {
+    this.predictions = predictionResult
+    this.imageMetadata = imgMetadata
+  }
 
-    get uri() {
-        return this.imageMetadata.uri;
-    }
+  get uri () {
+    return this.imageMetadata.uri
+  }
 
-    get id() {
-        return this.imageMetadata.uri;
-    }
+  get id () {
+    return this.imageMetadata.uri
+  }
 }
 
-export default PredictedImage;
+export default PredictedImage

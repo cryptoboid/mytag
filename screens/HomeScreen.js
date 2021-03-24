@@ -1,9 +1,12 @@
+
+/* global Platform,alert:readonly */
 import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, Button } from 'react-native'
 
-import * as MediaLibrary from 'expo-media-library';
 
-import ImageGrid from '../components/ImageGrid';
+import * as MediaLibrary from 'expo-media-library'
+
+import ImageGrid from '../components/ImageGrid'
 
 import PickerModal from 'react-native-picker-modal-view';
 
@@ -23,32 +26,31 @@ export default function HomeScreen() {
     const [classifiedPercentage, setClassifiedPercentage] = useState(0.0);
     const categoriesGrouper = useContext(CategoriesContext);
 
-    
-    const getImages = async (album) => {
-        const imgData = await MediaLibrary.getAssetsAsync({
-            // first: 10,
-            album: album.id,
-            mediaType: MediaLibrary.MediaType.photo
-        })
+  const getImages = async (album) => {
+    const imgData = await MediaLibrary.getAssetsAsync({
+      // first: 10,
+      album: album.id,
+      mediaType: MediaLibrary.MediaType.photo
+    })
 
-        return imgData.assets;
+    return imgData.assets
+  }
+
+  const notifyCategories = (newFoundCategories, newPercentage) => {
+    setFoundCategories(newFoundCategories)
+    setClassifiedPercentage(newPercentage)
+  }
+
+  const getAlbums = async () => {
+    const albums = await MediaLibrary.getAlbumsAsync()
+    let allImages = []
+
+    for (const album of albums) {
+      allImages = allImages.concat(await getImages(album))
     }
 
-    const notifyCategories = (newFoundCategories, newPercentage) => {
-        setFoundCategories(newFoundCategories);
-        setClassifiedPercentage(newPercentage);
-    }
-
-    const getAlbums = async () => {
-        const albums = await MediaLibrary.getAlbumsAsync();
-        let allImages = [];
-
-        for (const album of albums) {
-            allImages = allImages.concat(await getImages(album));
-        }
-
-        categoriesGrouper.useImages(allImages, notifyCategories);
-    }
+    categoriesGrouper.useImages(allImages, notifyCategories)
+  }
 
     useEffect(() => {
         const getPermissionAsync = async () => {
@@ -105,10 +107,36 @@ export default function HomeScreen() {
             </SafeAreaView>
         </View>
     )
+  }, [foundCategories, selectedCategoryIndx])
+
+  return (
+    <View style={styles.container}>
+      <View style={{ flexDirection: 'row' }}>
+        <Picker
+          selectedValue={selectedCategoryIndx}
+          style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedCategoryIndx(itemValue)
+          }
+          mode="dialog"
+          prompt="Select a Category"
+        >
+          {foundCategories.map((categ, indx) => (
+            <Picker.Item label={categ} value={indx} key={categ} />
+          ))}
+        </Picker>
+        <Text style={styles.text}>
+          Found {foundCategories.length} categories
+        </Text>
+      </View>
+      <ImageGrid predImages={imagesForThisCategory} />
+      <LoadingClassificationsBar completedPercentage={classifiedPercentage} />
+    </View>
+  )
 }
 
-
 const styles = StyleSheet.create({
+
     container: {
       flex: 1,
     },
