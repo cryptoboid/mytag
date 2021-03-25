@@ -7,6 +7,10 @@ import DetectedImage from '../components/DetectedImage'
 export default function ImageScreen ({ route, navigation }) {
   const { taggedImg } = route.params
 
+  const getPredictionsText = (tagsArray) => {
+    return tagsArray.map(tag => <Text style={styles.text} key={tag.name}>{tag.name} (x{tag.metadata.length})</Text>)
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: function share () { return <ShareButton asset={taggedImg}/> }
@@ -15,10 +19,10 @@ export default function ImageScreen ({ route, navigation }) {
 
   return (
         <View style={{ flex: 1 }}>
-            {/* {taggedImg.tags
-              ? taggedImg.tags.map(tag => <Text style={styles.text} key={tag.tagMetadata.bbox[0]}>{tag.name} ({tag.tagMetadata.score.toFixed(3)})</Text>)
+            {taggedImg.tags
+              ? getPredictionsText(taggedImg.tags)
               : <Text>NO PREDICTIONS FOUND!</Text>
-            } */}
+            }
             <DetectedImage img={taggedImg.uri} tags={taggedImg.tags}/>
         </View>
   )

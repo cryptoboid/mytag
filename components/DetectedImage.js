@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ImageBackground, View, StyleSheet } from 'react-native'
+import { ImageBackground, View, Text, StyleSheet } from 'react-native'
 
 export default function DetectedImage ({ img, tags }) {
   const [boxes, setBoxes] = useState([])
@@ -15,6 +15,8 @@ export default function DetectedImage ({ img, tags }) {
         box.top = pred.bbox[1] /// image.current.offsetWidth * 250;
         box.width = pred.bbox[2] /// image.current.offsetWidth * 250;
         box.height = pred.bbox[3] /// image.current.offsetWidth * 250;
+        box.name = pred.class
+        box.score = pred.score
         newBoxes.push(box)
       }
     }
@@ -29,7 +31,9 @@ export default function DetectedImage ({ img, tags }) {
       style={{ flex: 1 }}
     >
       {boxes.map((box) => (
-        <View style={[styles.rectangle, box]} key={box.top + box.left}></View>
+        <View style={[styles.rectangle, box]} key={box.top + box.left}>
+          <Text style={styles.boxText}>{box.name} ({box.score.toFixed(2)})</Text>
+        </View>
       ))}
     </ImageBackground>
   )
@@ -44,5 +48,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '0%',
     left: '0%'
+  },
+  boxText: {
+    fontSize: 10,
+    backgroundColor: 'aquamarine'
   }
 })
