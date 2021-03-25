@@ -1,4 +1,4 @@
-/* global Platform,alert:readonly */
+/* global Platform:readonly */
 import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 
