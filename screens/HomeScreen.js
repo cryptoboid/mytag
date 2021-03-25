@@ -1,6 +1,6 @@
 /* global Platform,alert:readonly */
 import React, { useEffect, useState, useContext } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, SafeAreaView } from 'react-native'
 
 import * as MediaLibrary from 'expo-media-library'
 
@@ -86,7 +86,9 @@ export default function HomeScreen () {
         </Text>
       </View>
       <ImageGrid predImages={imagesForThisCategory} />
-      <LoadingClassificationsBar completedPercentage={classifiedPercentage} />
+      <SafeAreaView>
+        <LoadingClassificationsBar completedPercentage={classifiedPercentage} />
+      </SafeAreaView>
     </View>
   )
 }
