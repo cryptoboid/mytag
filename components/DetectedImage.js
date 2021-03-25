@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, View, StyleSheet } from 'react-native'
 
-export default function DetectedImage ({ img, predictions }) {
+export default function DetectedImage ({ img, tags }) {
   const [boxes, setBoxes] = useState([])
   // const image = useRef(null);
 
   useEffect(() => {
-    if (!predictions) return
+    if (!tags) return
     const newBoxes = []
-    for (const pred of predictions) {
-      const box = {}
-      box.left = pred.bbox[0] /// image.current.offsetWidth * 250;
-      box.top = pred.bbox[1] /// image.current.offsetWidth * 250;
-      box.width = pred.bbox[2] /// image.current.offsetWidth * 250;
-      box.height = pred.bbox[3] /// image.current.offsetWidth * 250;
-      newBoxes.push(box)
+    for (const tag of tags) {
+      for (const pred of tag.metadata) {
+        const box = {}
+        box.left = pred.bbox[0] /// image.current.offsetWidth * 250;
+        box.top = pred.bbox[1] /// image.current.offsetWidth * 250;
+        box.width = pred.bbox[2] /// image.current.offsetWidth * 250;
+        box.height = pred.bbox[3] /// image.current.offsetWidth * 250;
+        newBoxes.push(box)
+      }
     }
 
     setBoxes(newBoxes)
-  }, [predictions])
+  }, [tags])
 
   return (
     <ImageBackground

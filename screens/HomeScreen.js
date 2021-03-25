@@ -8,15 +8,15 @@ import ImageGrid from '../components/ImageGrid'
 
 import { Picker } from '@react-native-picker/picker'
 
-import { CategoriesContext } from '../utils/CategoriesContext'
+import { TagsContext } from '../utils/TagsContext'
 import LoadingClassificationsBar from '../components/LoadingClassificationsBar'
 
 export default function HomeScreen () {
   const [selectedCategoryIndx, setSelectedCategoryIndx] = useState(0)
   const [imagesForThisCategory, setImagesForThisCategory] = useState([])
-  const [foundCategories, setFoundCategories] = useState([])
-  const [classifiedPercentage, setClassifiedPercentage] = useState(0.0)
-  const categoriesGrouper = useContext(CategoriesContext)
+  const [foundTagNames, setFoundTagNames] = useState([])
+  const [taggedPercentage, setTaggedPercentage] = useState(0.0)
+  const tagsCollection = useContext(TagsContext)
 
   const getImages = async (album) => {
     const imgData = await MediaLibrary.getAssetsAsync({
@@ -28,9 +28,9 @@ export default function HomeScreen () {
     return imgData.assets
   }
 
-  const notifyCategories = (newFoundCategories, newPercentage) => {
-    setFoundCategories(newFoundCategories)
-    setClassifiedPercentage(newPercentage)
+  const notifyTags = (newFoundNames, newPercentage) => {
+    setFoundTagNames(newFoundNames)
+    setTaggedPercentage(newPercentage)
   }
 
   const getAlbums = async () => {
@@ -41,7 +41,7 @@ export default function HomeScreen () {
       allImages = allImages.concat(await getImages(album))
     }
 
-    categoriesGrouper.useImages(allImages, notifyCategories)
+    tagsCollection.useImages(allImages, notifyTags)
   }
 
   useEffect(() => {
@@ -61,9 +61,9 @@ export default function HomeScreen () {
 
   useEffect(() => {
     setImagesForThisCategory(
-      categoriesGrouper.getForCategory(foundCategories[selectedCategoryIndx])
+      tagsCollection.getCollectionWithName(foundTagNames[selectedCategoryIndx])
     )
-  }, [foundCategories, selectedCategoryIndx])
+  }, [foundTagNames, selectedCategoryIndx])
 
   return (
     <View style={styles.container}>
@@ -75,19 +75,19 @@ export default function HomeScreen () {
             setSelectedCategoryIndx(itemValue)
           }
           mode="dialog"
-          prompt="Select a Category"
+          prompt="Select a Tag"
         >
-          {foundCategories.map((categ, indx) => (
-            <Picker.Item label={categ} value={indx} key={categ} />
+          {foundTagNames.map((tag, indx) => (
+            <Picker.Item label={tag} value={indx} key={tag} />
           ))}
         </Picker>
         <Text style={styles.text}>
-          Found {foundCategories.length} categories
+          Found {foundTagNames.length} tags
         </Text>
       </View>
-      <ImageGrid predImages={imagesForThisCategory} />
+      <ImageGrid taggedImgs={imagesForThisCategory} />
       <SafeAreaView>
-        <LoadingClassificationsBar completedPercentage={classifiedPercentage} />
+        <LoadingClassificationsBar completedPercentage={taggedPercentage} />
       </SafeAreaView>
     </View>
   )

@@ -9,7 +9,7 @@ import {
 
 import HomeScreen from './screens/HomeScreen'
 import ImageScreen from './screens/ImageScreen'
-import { CategoriesContextProvider } from './utils/CategoriesContext'
+import { TagsContextProvider } from './utils/TagsContext'
 LogBox.ignoreLogs(['tf.nonMaxSuppression'])
 
 const Stack = createStackNavigator()
@@ -28,7 +28,7 @@ const MyTheme = {
 
 export default function App () {
   return (
-    <CategoriesContextProvider>
+    <TagsContextProvider>
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
           initialRouteName="Home"
@@ -41,6 +41,6 @@ export default function App () {
           <Stack.Screen name="Image" component={ImageScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </CategoriesContextProvider>
+    </TagsContextProvider>
   )
 }
