@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet } from 'react-native'
+import { Alert, StyleSheet, Platform, ActivityIndicator } from 'react-native'
 import * as Sharing from 'expo-sharing'
 import * as MediaLibrary from 'expo-media-library'
 import * as FileSystem from 'expo-file-system'
-import { Feather } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
 /*
@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
   - Initiates a file share
 */
 export function ShareButton ({ asset, ...props }) {
+  const shareIcon = Platform.OS === 'ios' ? 'share-outline' : 'share-social-sharp'
   const [loading, setLoading] = useState(false)
   const onShare = async () => {
     try {
@@ -42,7 +43,7 @@ export function ShareButton ({ asset, ...props }) {
       setLoading(false)
       // TODO: add a snackbar / toast to show a user sided error
       console.log({ err })
-      Alert.alert('There was an error sharing file')
+      Alert.alert('There was an error sharing the file')
     }
   }
   return (
@@ -50,17 +51,20 @@ export function ShareButton ({ asset, ...props }) {
       onPress={!loading ? onShare : () => {}}
       style={styles.iconContainer}
     >
-      <Feather
-        name={!loading ? 'share' : 'loader'}
+      {loading
+        ? <ActivityIndicator size='small' color='black'/>
+        : <Ionicons
+        name={shareIcon}
         size={25}
-        color="#fff"
-      ></Feather>
+        color="rgb(28, 28, 30)"
+      />
+      }
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
   iconContainer: {
-    marginRight: 8
+    marginRight: 10
   }
 })

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Text, View, StyleSheet } from 'react-native'
-import { ShareButton } from '../components/Button'
+import { ShareButton } from '../components/ShareButton'
 import DetectedImage from '../components/DetectedImage'
 
 export default function ImageScreen ({ route, navigation }) {
