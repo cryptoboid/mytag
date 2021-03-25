@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 
 import { Text, View, StyleSheet } from 'react-native'
 import { ShareButton } from '../components/ShareButton'
@@ -7,7 +7,7 @@ import DetectedImage from '../components/DetectedImage'
 export default function ImageScreen ({ route, navigation }) {
   const { predImg } = route.params
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: function share () { return <ShareButton asset={predImg}/> }
     })
