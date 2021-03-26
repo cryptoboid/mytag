@@ -7,9 +7,9 @@ import {
   CardStyleInterpolators
 } from '@react-navigation/stack'
 
-import HomeScreen from './screens/HomeScreen'
-import ImageScreen from './screens/ImageScreen'
-import { TagsContextProvider } from './utils/TagsContext'
+import HomeScreen from './src/screens/HomeScreen'
+import ImageScreen from './src/screens/ImageScreen'
+import { TagsContextProvider } from './src/utils/TagsContext'
 LogBox.ignoreLogs(['tf.nonMaxSuppression'])
 
 const Stack = createStackNavigator()
