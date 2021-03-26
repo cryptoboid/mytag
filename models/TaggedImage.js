@@ -1,6 +1,6 @@
-class PredictedImage {
-  constructor (imgMetadata, predictionResult) {
-    this.predictions = predictionResult
+export default class TaggedImage {
+  constructor (imgMetadata, tags) {
+    this.tags = tags
     this.imageMetadata = imgMetadata
   }
 
@@ -12,5 +12,3 @@ class PredictedImage {
     return this.imageMetadata.uri
   }
 }
-
-export default PredictedImage
