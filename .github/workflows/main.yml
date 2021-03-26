@@ -3,23 +3,13 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  setup:
+  lint-and-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install modules
       run: npm ci
-  run-lint:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
     - name: Run ESLint
       run: npx eslint .
-  test:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
     - name: Run tests
       run: npm run test
