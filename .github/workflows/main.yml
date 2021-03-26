@@ -13,11 +13,13 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Run ESLint
       run: npx eslint .
   test:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Run tests
       run: npm run test
