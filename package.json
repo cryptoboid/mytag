@@ -7,7 +7,8 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest",
-    "test:precommit": "jest --bail --findRelatedTests"
+    "test:precommit": "jest --bail --findRelatedTests",
+    "fix":"eslint --cache --fix"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
