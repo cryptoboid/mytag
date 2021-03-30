@@ -23,7 +23,7 @@ export default function ImageScreen ({ route, navigation }) {
               ? getPredictionsText(taggedImg.tags)
               : <Text>NO PREDICTIONS FOUND!</Text>
             }
-            <DetectedImage img={taggedImg.uri} tags={taggedImg.tags}/>
+            <DetectedImage imgMetadata={taggedImg.imageMetadata} tags={taggedImg.tags}/>
         </View>
   )
 }
