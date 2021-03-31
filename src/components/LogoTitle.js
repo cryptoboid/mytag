@@ -11,7 +11,7 @@ export default function LogoTitle () {
                 source={DarkIcon}
                 style={{width: LOGO_SIZE, height: LOGO_SIZE, tintColor: 'rgb(30, 30, 32)'}}
             /> */}
-            <Text style={{ fontSize: 20, margin: LOGO_SIZE / 3 }}>myTag</Text>
+            <Text style={{ fontSize: 21.5, margin: LOGO_SIZE / 3, fontWeight: 'normal' }}>myTag</Text>
         </View>
   )
 }
