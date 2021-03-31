@@ -2,7 +2,6 @@ import React from 'react'
 import { LogBox } from 'react-native' // Ignore log notification by message
 
 import { NavigationContainer } from '@react-navigation/native'
-import { enableScreens } from 'react-native-screens'
 import {
   createStackNavigator,
   CardStyleInterpolators
@@ -14,8 +13,6 @@ import BrowseImagesScreen from './src/screens/BrowseImagesScreen'
 import { TagsContextProvider } from './src/utils/TagsContext'
 
 LogBox.ignoreLogs(['tf.nonMaxSuppression'])
-
-enableScreens()
 
 const Stack = createStackNavigator()
 
