@@ -15,7 +15,7 @@ export default function TagsGrid ({ foundTagNames }) {
 
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('Image', { taggedImg: img })}
+        onPress={() => navigation.navigate('BrowseImages', { tagName: item })}
         style={styles.item}
       >
         <ImageBackground source={{ uri: img.uri }} style={styles.imgItem} imageStyle={styles.imgContainer}>
@@ -33,35 +33,37 @@ export default function TagsGrid ({ foundTagNames }) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <FlatList
-        contentContainerStyle={styles.container}
-        data={foundTagNames}
-        renderItem={renderItem}
-        keyExtractor={(item) => item}
-        numColumns={2}
-      />
-    </View>
+    <FlatList
+      contentContainerStyle={styles.container}
+      data={foundTagNames}
+      renderItem={renderItem}
+      keyExtractor={(item) => item}
+      numColumns={2}
+    />
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingBottom: 40,
-    paddingTop: 6,
-    alignItems: 'center',
-    marginHorizontal: 16
+    paddingTop: 6
+    // alignItems: 'center',
   },
   item: {
-    margin: 10
+    margin: 10,
+    width: Dimensions.get('window').width / 2,
+    aspectRatio: 1,
+    flex: 1
   },
   imgItem: {
-    width: Dimensions.get('window').width / 2.35,
-    aspectRatio: 1
+    // width: Dimensions.get('window').width / 2.35,
+    // aspectRatio: 1,
+    flex: 1
   },
   imgContainer: {
     borderRadius: 20,
     justifyContent: 'center'
+    // flex: 1
   },
   overImgContainer: {
     alignItems: 'center',

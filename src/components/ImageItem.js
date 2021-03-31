@@ -9,17 +9,17 @@ export default function ImageItem ({ img }) {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Image', { taggedImg: img })}
+      style={styles.item}
     >
-      <Image source={{ uri: img.uri }} style={styles.item} />
+      <Image source={{ uri: img.uri }} style={styles.imgItem} />
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-  item: {
+  item: { padding: 0.75, aspectRatio: 4 / 5, width: Dimensions.get('window').width / 3 },
+  imgItem: {
     backgroundColor: '#ffffff',
-    margin: 1.5,
-    height: Dimensions.get('window').height / 4.85,
-    aspectRatio: 4 / 5
+    flex: 1
   }
 })

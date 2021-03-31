@@ -6,6 +6,8 @@ export default class TagsCollection {
     this.tagCollections = {}
 
     this.tagCollections.unknown = []
+
+    this.newImagesListeners = {}
   }
 
   async addImage (imgMetadata) {
@@ -31,6 +33,13 @@ export default class TagsCollection {
     for (const tag of taggedImage.tags) {
       const collection = this.getCollectionWithName(tag.name)
       collection.push(taggedImage)
+
+      // announce new image to listeners
+      if (this.newImagesListeners[tag.name]) {
+        this.newImagesListeners[tag.name].forEach(listener => {
+          listener(collection)
+        })
+      }
     }
   }
 
@@ -64,5 +73,13 @@ export default class TagsCollection {
   getCoverImageForTag (tagName) {
     const coll = this.getCollectionWithName(tagName)
     return coll[0]
+  }
+
+  setImageListenerForTag (tagName, listener) {
+    if (!this.newImagesListeners[tagName]) {
+      this.newImagesListeners[tagName] = []
+    }
+
+    this.newImagesListeners[tagName].push(listener)
   }
 }
