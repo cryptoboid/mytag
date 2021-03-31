@@ -60,4 +60,9 @@ export default class TagsCollection {
 
     return res
   }
+
+  getCoverImageForTag (tagName) {
+    const coll = this.getCollectionWithName(tagName)
+    return coll[0]
+  }
 }

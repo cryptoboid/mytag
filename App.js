@@ -37,7 +37,7 @@ export default function App () {
               CardStyleInterpolators.forRevealFromBottomAndroid
           }}
         >
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'myTag' }}/>
           <Stack.Screen name="Image" component={ImageScreen} />
         </Stack.Navigator>
       </NavigationContainer>

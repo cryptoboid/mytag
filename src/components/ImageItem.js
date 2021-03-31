@@ -1,6 +1,5 @@
 import React from 'react'
-import { Image, Dimensions, StyleSheet } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
 
