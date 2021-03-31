@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, View } from 'react-native'
-
 import ImageGrid from '../components/ImageGrid'
-
 import { TagsContext } from '../utils/TagsContext'
+import toTitleCase from '../utils/ToTitleCase'
 
 export default function BrowseImagesScreen ({ route, navigation }) {
   const { tagName } = route.params
@@ -15,7 +14,7 @@ export default function BrowseImagesScreen ({ route, navigation }) {
   }
 
   useEffect(() => {
-    navigation.setOptions({ title: tagName })
+    navigation.setOptions({ title: toTitleCase(tagName) })
 
     const images = tagsCollection.getCollectionWithName(tagName)
     setImagesForThisTag(images)

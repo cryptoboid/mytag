@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, FlatList, TouchableOpacity, ImageBackground, Di
 import { TagsContext } from '../utils/TagsContext'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
+import toTitleCase from '../utils/ToTitleCase'
 
 export default function TagsGrid ({ foundTagNames }) {
   const tagsCollection = useContext(TagsContext)
@@ -25,7 +26,7 @@ export default function TagsGrid ({ foundTagNames }) {
             start={{ x: 0.5, y: 0.55 }}
             end={{ x: 0.5, y: 1 }}
           >
-            <Text style={styles.tagText}>{item}</Text>
+            <Text style={styles.tagText}>{toTitleCase(item)}</Text>
           </LinearGradient>
         </ImageBackground>
       </TouchableOpacity>
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   },
   tagText: {
     color: 'white',
-    paddingBottom: 7,
+    paddingBottom: 10,
     fontWeight: 'bold'
   }
 })
