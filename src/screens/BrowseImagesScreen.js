@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext, useLayoutEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import ImageGrid from '../components/ImageGrid'
 import { TagsContext } from '../utils/TagsContext'
@@ -14,13 +14,15 @@ export default function BrowseImagesScreen ({ route, navigation }) {
   }
 
   useEffect(() => {
-    navigation.setOptions({ title: toTitleCase(tagName) })
-
     const images = tagsCollection.getCollectionWithName(tagName)
     setImagesForThisTag(images)
 
     tagsCollection.setImageListenerForTag(tagName, notifyNewImages)
   }, [])
+
+  useLayoutEffect(() => {
+    navigation.setOptions({ title: toTitleCase(tagName) })
+  }, [navigation])
 
   return (
     <View style={styles.container}>

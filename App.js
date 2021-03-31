@@ -7,6 +7,7 @@ import {
   CardStyleInterpolators
 } from '@react-navigation/stack'
 
+import LogoTitle from './src/components/LogoTitle'
 import HomeScreen from './src/screens/HomeScreen'
 import ImageScreen from './src/screens/ImageScreen'
 import BrowseImagesScreen from './src/screens/BrowseImagesScreen'
@@ -35,7 +36,11 @@ export default function App () {
         <Stack.Navigator
           initialRouteName="Home"
         >
-          <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'myTag' }}/>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: 'myTag', headerTitle: (props) => <LogoTitle {...props} /> }} // eslint-disable-line
+          />
           <Stack.Screen
             name="Image"
             component={ImageScreen}
