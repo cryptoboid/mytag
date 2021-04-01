@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  Image
+  Image,
+  PixelRatio
 } from 'react-native'
 
 export default function DetectedImage ({ img, tags }) {
@@ -21,18 +22,19 @@ export default function DetectedImage ({ img, tags }) {
       //  to avoid having to deal with the callbacks internally
       // eg: image.current.measure in the renderImageWithBox function
       const allBoxPromises = tags.map(async (tag) => {
-        return Promise.all(tag.metadata.map((prediction) =>
-          renderImageWithBox(prediction, imageWidth, imageHeight)
-        )).then(boxes => {
+        return Promise.all(
+          tag.metadata.map((prediction) =>
+            renderImageWithBox(prediction, imageWidth, imageHeight)
+          )
+        ).then((boxes) => {
           newBoxes = newBoxes.concat(boxes)
         })
       })
 
       // Run all the promises at once to keep the speed intact
-      Promise.all(allBoxPromises)
-        .then(_ => {
-          setBoxes(newBoxes)
-        })
+      Promise.all(allBoxPromises).then((_) => {
+        setBoxes(newBoxes)
+      })
     })
   }, [tags])
 
@@ -47,6 +49,7 @@ export default function DetectedImage ({ img, tags }) {
     // Image boundary after getting contained which is going to be less than
     // the image container thus giving us the needed constraints to calculate
     // the top offset
+
     const actualImageBoundary = {
       width: deviceDimensions.width,
       height: (deviceDimensions.width / imageWidth) * imageHeight
@@ -59,7 +62,8 @@ export default function DetectedImage ({ img, tags }) {
     })
 
     // Random error offset just there in case of padded or white bordered images
-    const errorOffset = 20
+    const horizontalErrorOffset = 35
+    const verticalErrorOffset = 10
     /**
      * section is divided in 3 parts, 2 parts without a value and 1 part being
      *  the actual image
@@ -69,13 +73,28 @@ export default function DetectedImage ({ img, tags }) {
      *  x =( fullSectionHeight - imageHeight )/ 2
      *  x now represents the top of the image as that's where part 1 ends.
      */
-    const imageTop = Math.abs(renderedImageBoundary.height - actualImageBoundary.height) / 2
-    const topOffset = boxTop + imageTop + errorOffset
 
-    box.left = boxLeft
+    let imageTop =
+      (renderedImageBoundary.height - actualImageBoundary.height) / 2
+
+    // In case the image is already bigger than the container then just use the container top
+    if (actualImageBoundary.height > renderedImageBoundary.height) {
+      imageTop = 0
+    }
+
+    const minimumBoxHeight = 50
+    const minimumBoxWidth = 50
+    const topOffset = PixelRatio.roundToNearestPixel(
+      boxTop + imageTop + verticalErrorOffset
+    )
+    const leftOffset = PixelRatio.roundToNearestPixel(
+      boxLeft + horizontalErrorOffset
+    )
+
+    box.left = leftOffset
     box.top = topOffset
-    box.width = boxWidth
-    box.height = boxHeight
+    box.width = boxWidth < minimumBoxWidth ? minimumBoxWidth : boxWidth
+    box.height = boxHeight < minimumBoxHeight ? minimumBoxHeight : boxHeight
     box.name = prediction.class
     box.score = prediction.score
     return box
@@ -90,8 +109,8 @@ export default function DetectedImage ({ img, tags }) {
         flex: 1
       }}
     >
-      {boxes.map((box) => (
-        <View style={[styles.rectangle, box]} key={box.top + box.left}>
+      {boxes.map((box, index) => (
+        <View style={[styles.rectangle, box]} key={box.top + box.left + index}>
           <Text style={styles.boxText}>
             {box.name} ({box.score.toFixed(2)})
           </Text>
