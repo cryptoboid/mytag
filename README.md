@@ -18,10 +18,10 @@
 
 <p align="center">
 Find your images quickly! myTag aims to be a simple auto-tagging image gallery.
-    
+</p>
+<p align="center">
 Powered by a Tensorflow model with on-device classification. Built with Expo+React Native.
-<p/>
-<br>
+</p>
 
 ## Current status
 
