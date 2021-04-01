@@ -31,6 +31,7 @@ export default function App () {
       <NavigationContainer theme={MyTheme}>
         <Stack.Navigator
           initialRouteName="Home"
+          screenOptions={{ headerTintColor: LightTheme.colors.text }} // use black text color for headers, for now
         >
           <Stack.Screen
             name="Home"
