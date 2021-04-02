@@ -1,10 +1,27 @@
-# mytag
 
-<img width="100vw" src="./assets/icon.png" align="left" style="margin: 0 1em 1em 0"> Find your images quickly! mytag aims to be a simple auto-tagging image gallery.
+<p align="center">
+    <img alt="mytag" height="128" src="./assets/icon.png">
+    <h1 align="center">myTag</h1>
+</p>
 
+<p align="center">
+  <a aria-label="Build" href="https://github.com/cryptoboid/mytag/actions" target="_blank">
+    <img alt="Build" src="https://img.shields.io/github/workflow/status/cryptoboid/mytag/CI?style=flat-square" />
+  </a>
+   <a aria-label="Release version" href="https://github.com/cryptoboid/mytag/releases" target="_blank">
+    <img alt="Release version" src="https://img.shields.io/github/v/release/cryptoboid/mytag?style=flat-square" />
+  </a>
+  <a aria-label="License" href="https://github.com/cryptoboid/mytag/blob/main/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/github/license/cryptoboid/mytag?style=flat-square" target="_blank" />
+  </a>
+</p>
+
+<p align="center">
+Find your images quickly! myTag aims to be a simple auto-tagging image gallery.
+</p>
+<p align="center">
 Powered by a Tensorflow model with on-device classification. Built with Expo+React Native.
-<br>
-<br>
+</p>
 
 ## Current status
 
@@ -16,6 +33,8 @@ Right now, the first prototype achieves:
 - From the dropdown, the user can choose different categories and view the corresponding images.
 - If the app is open later, the "analysis" will be much much faster, as results were cached locally.
 
+We are currently working towards [v1.1.0](https://github.com/cryptoboid/mytag/projects/3), with a new UI, dark theme and new features!
+
 **APK available:** find these features and more in [Releases](https://github.com/cryptoboid/mytag/releases)
 
 ## Contribute
@@ -25,7 +44,8 @@ You can either use the Docker container, or install Expo.
 ### Docker
 
 1. Install [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/).
-2. Clone and start the container:
+2. 
+3. Clone and start the container:
 
 ```bash
 git clone git@github.com:cryptoboid/mytag.git

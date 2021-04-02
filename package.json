@@ -8,7 +8,7 @@
     "eject": "expo eject",
     "test": "jest",
     "test:precommit": "jest --bail --findRelatedTests",
-    "fix":"eslint --cache --fix src/**/*.js App.js"
+    "fix": "eslint --cache --fix src/**/*.js App.js"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
@@ -38,6 +38,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
+    "react-native-appearance": "~0.3.3",
     "react-native-fs": "^2.16.6",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-grid-image-viewer": "^1.0.6",
