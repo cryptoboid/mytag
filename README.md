@@ -44,9 +44,7 @@ You can either use the Docker container, or install Expo.
 ### Docker
 
 1. Install [Docker Engine](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/).
-2. 
-3. Clone and start the container:
-
+2. Clone and start the container:
 ```bash
 git clone git@github.com:cryptoboid/mytag.git
 cd mytag
